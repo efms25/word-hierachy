@@ -2,10 +2,17 @@
   "name": "@wordhierarchy/server",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "start": "bun run cli.ts --"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/yargs": "^17.0.33"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "yargs": "^17.7.2"
   }
 }

@@ -1,0 +1,1 @@
+export const DICTS_PATH = 'dicts/hierarchy.json'
