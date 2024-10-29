@@ -6,9 +6,13 @@
  */
 
 export async function calculateTime(callback: Function) {
+  try {
     const beginTime = performance.now();
     const result = await callback();
     const endTime = performance.now();
 
-    return [result, endTime - beginTime]
+    return [result, endTime - beginTime];
+  } catch (err) {
+    throw new Error('Internal calculation error, please check the provided callback function. ' + err);
+  }
 }
