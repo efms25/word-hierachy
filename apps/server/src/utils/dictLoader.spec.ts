@@ -3,8 +3,6 @@ import { loadDict } from "./dictLoader";
 import * as hirarchyType from "../types/hirarchy.type";
 import { DICTS_PATH } from '../config/config';
 
-// jest.mock('fs/promises')
-
 describe('loadDict', () => {
     const mockData = [
       {
