@@ -2,6 +2,7 @@
   "name": "@wordhierarchy/server",
   "module": "index.ts",
   "type": "module",
+  "main": "cli.ts",
   "scripts": {
     "start": "bun run cli.ts --",
     "test": "jest"
