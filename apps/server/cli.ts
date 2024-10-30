@@ -2,7 +2,7 @@ import yargs from 'yargs';
 import Table from 'cli-table3'
 import { hideBin } from 'yargs/helpers'
 import { calculateTime } from "./src/utils/metrics";
-import { analyzeText } from './src/utils/hirarchyAnalyzer';
+import { analyzeText } from './src/utils/hierarchyAnalyzer';
 import { loadDict } from './src/utils/dictLoader';
 
 async function loadParams() {
