@@ -6,6 +6,7 @@
  * @returns hashMap com a contagem de palavras.
  */
 import { Hierarchy } from "../types/hirarchy.type";
+import { normalizeText } from "./normalizer";
 
 
 export function analyzeText(
@@ -13,7 +14,8 @@ export function analyzeText(
   text: string,
   targetDepth: number
 ): Map<string,number>| null {
-  const words: Array<string> = text.split(" ");
+  
+  const words: Array<string> = normalizeText(text).split(" ");
   // O hashMap possui um bom desepenho em sua execução,
   // ideal para armazenar a contagem nos nós alvo
   const counts = new Map();  
