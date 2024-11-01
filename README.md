@@ -1,81 +1,77 @@
-# Turborepo starter
 
-This is an official starter Turborepo.
+# Word Hierarchy
 
-## Using this example
+Applicações para gerar arvores de palavras como categorias e subcategorias e analisa frases para determinar correspondentes em uma determinada profundidade.
 
-Run the following command:
+**Front-end (apps/frontend):** Desenvolvido em React.js, oferece, de forma intuitiva, uma interface para criação e exportação de arvores de palavras.
 
-```sh
-npx create-turbo@latest
-```
+**Back-end (apps/server):** O sistema desenvolvido em Node.js e utilizando o runtime bun, analisa uma frase fornecida pelo usuário, identifica a profundidade de uma palavra mencionada e exibe os itens próximos dessa profundidade.
 
-## What's inside?
 
-This Turborepo includes the following packages/apps:
+## **Funcionalidades**
 
-### Apps and Packages
+* Análise de frases com base em uma hierarquia de palavras.  
+* Configuração de profundidade para a análise.  
+* Opção de visualização de métricas de desempenho.  
+* Exibição de resultados em formato de tabela.
+* Interface para montagem de arvores de hierarquia.
+* Conversão de dados da arvore para arquivo JSON
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+## **Principais Tecnologias Utilizadas**
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+* Turborepo: Sistema de build otimizado para monorepos e espaços de trabalho de pacotes únicos.
+* TypeScript: Linguagem de programação utilizada para o desenvolvimento.
+* Yargs: Biblioteca para construção de interfaces de linha de comando.    
+* Node.js: Ambiente de execução para JavaScript.
+* Vite: Ferramenta de build rápida para front-end.
+* React.js: Biblioteca para contrução de intrefaces de usuário, especialmente SPA.
+* Styled-components: Biblioteca de CSS em JavaScript
 
-### Utilities
+## **Instalação**
 
-This Turborepo has some additional tools already setup for you:
+### **Backend**
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+**1.** Clone o repositório:  `https://github.com/efms25/word-hierarchy.git`
 
-### Build
+**2.** Entre na pasta: `cd word-hierarchy/apps/server`
 
-To build all apps and packages, run the following command:
+**3.** Instale os pacotes: `npm install`
 
-```
-cd my-turborepo
-pnpm build
-```
+### **Front-end**
+> 💡Após a instalação clone do projeto
 
-### Develop
+**1.** Entre na pasta: `cd word-hierarchy/apps/frontend`
 
-To develop all apps and packages, run the following command:
+**2.** Instale os pacotes: `npm install`
 
-```
-cd my-turborepo
-pnpm dev
-```
+**3.** Instale os pacotes: `npm run dev`
 
-### Remote Caching
+## **Uso Backend**
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+Para usar a ferramenta, execute o seguinte comando:
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+`bun cli.js analyze --depth <número> --verbose <true/false> <texto>`
 
-```
-cd my-turborepo
-npx turbo login
-```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+### **Parâmetros**
 
-```
-npx turbo link
-```
+* \--depth: (opcional) Define a profundidade da análise na hierarquia. O padrão é 1.  
+* \--verbose: (opcional) Exibe as métricas de tempo de execução.
+* \<texto\>: (obrigatório) O texto que será analisado.
 
-## Useful Links
 
-Learn more about the power of Turborepo:
+### **Exemplo de Uso**
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+`bun cli.js analyze --depth 2 --verbose true "Este é um exemplo de texto para análise."`
+
+## **Uso Frontend**
+
+1. Clique em adicionar (na profundidade desejada)
+2. Digite a palavras que deseja adicionar 
+3. Clique em adicionar para confimar
+## **Estrutura do Código**
+
+* apps/server: Backend Node
+* apps/frontend: Frontend React
+
