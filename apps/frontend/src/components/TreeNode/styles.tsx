@@ -50,4 +50,20 @@ const ChildrenContainer = styled.div<{ expanded: boolean }>`
     flex: 0 1 auto;
   }
 `;
-export { Container, TitleBox, ArrowButton, ChildrenContainer, ParentContaier };
+
+const RemoveButton = styled.button`
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  color: tomato;
+`;
+export {
+  Container,
+  TitleBox,
+  ArrowButton,
+  ChildrenContainer,
+  ParentContaier,
+  RemoveButton,
+};

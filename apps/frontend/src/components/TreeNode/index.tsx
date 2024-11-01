@@ -1,5 +1,6 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
+import { HiOutlineTrash } from "react-icons/hi";
 
 import {
   Container,
@@ -7,28 +8,36 @@ import {
   ArrowButton,
   ChildrenContainer,
   ParentContaier,
+  RemoveButton,
 } from "./styles";
 
 export interface ITreeNode {
   children?: ReactNode[];
   name: string;
-  onClick?: () => void;
+  onRemove?: (id: string) => void;
   expanded?: boolean;
+  id?: string;
 }
 
-function TreeNode({
-  children,
-  name,
-  onClick,
-  expanded = false,
-}: ITreeNode): JSX.Element {
+function TreeNode({ children, name, onRemove, id }: ITreeNode): JSX.Element {
+  const [expanded, setExpanded] = useState<boolean>(false);
+
+  const handleToggleExpand = () => {
+    setExpanded(!expanded);
+  };
+
+  const handleRemove = () => {
+    if (onRemove && id) {
+      onRemove(id);
+    }
+  };
   return (
     <Container>
       <ParentContaier>
         {children && children.length ? (
           <ArrowButton
             className={expanded ? "expanded" : ""}
-            onClick={onClick}
+            onClick={handleToggleExpand}
             type="button"
           >
             <IoIosArrowDown />
@@ -36,9 +45,14 @@ function TreeNode({
         ) : (
           <span className="arrow-button-space"></span>
         )}
-        <TitleBox onClick={onClick}>
+        <TitleBox onClick={handleToggleExpand}>
           <div>
             <span>{name}</span>
+          </div>
+          <div>
+            <RemoveButton onClick={handleRemove}>
+              <HiOutlineTrash />
+            </RemoveButton>
           </div>
         </TitleBox>
       </ParentContaier>
