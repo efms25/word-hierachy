@@ -1,12 +1,12 @@
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { Container } from "./styles";
 export interface IButton {
   children: string | ReactNode;
   onClick?: (id?: string) => void;
   id?: string;
-  type?: string;
+  type?: "button" | "submit" | "reset";
   color?: string;
-  style?: string;
+  style?: CSSProperties;
 }
 function Button({ children, onClick, id, type = "button", color = "#00c853", style }: IButton) {
   const handleClickButton = () => {

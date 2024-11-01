@@ -4,6 +4,7 @@ import EmptyTree from "../EmptyTree";
 import { Fragment, useState } from "react";
 import TreeNode from "../TreeNode";
 import Button from "../Button";
+import { nestIndexAccessHierarchy } from "../../utils/utils";
 
 export type IHierarchy = {
   id: number;
@@ -44,6 +45,14 @@ function TreeView(): JSX.Element {
       setTree(treeAux);
       return;
     }
+
+    const indexSequence: Array<string> = position
+      .split("-")
+      .filter((f) => f !== "");
+    const idx: number = parseInt(indexSequence.shift() as string);
+    nestIndexAccessHierarchy(treeAux[idx], indexSequence, (node) => {
+      node.children.push(nodeData);
+    });
   };
 
   const renderNode = (tree: Array<IHierarchy>, parentIndex: string = "") => {
@@ -53,9 +62,10 @@ function TreeView(): JSX.Element {
         <TreeNode key={node.id} name={node.name} id={`${parentIndex}-${index}`}>
           {renderNode(node.children, `${parentIndex}-${index}`)}
           <Button
+            style={{ marginTop: 10 }}
             onClick={() => handleToggleAddModal(`${parentIndex}-${index}`)}
           >
-            Adicionar Palavra ao nó
+            Adicionar Palavra ao nó {node.name.length > 10 ? node.name.slice(0,10) + '...' : node.name}
           </Button>
         </TreeNode>
       );
@@ -67,7 +77,9 @@ function TreeView(): JSX.Element {
       {tree.length ? (
         <Fragment>
           {renderNode(tree)}
-          <Button style={{marginTop: 10}} onClick={handleToggleAddModal}>Adicionar Palavra à raiz</Button>
+          <Button style={{ marginTop: 10 }} onClick={handleToggleAddModal}>
+            Adicionar Palavra à raiz
+          </Button>
         </Fragment>
       ) : (
         <EmptyTree addWordClick={handleToggleAddModal} />
