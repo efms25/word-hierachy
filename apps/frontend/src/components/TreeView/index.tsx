@@ -25,29 +25,38 @@ function TreeView(): JSX.Element {
   };
 
   const onSubmitAdd = () => {
-    const position = addModal === "root" ? undefined : addModal;
-    handleAddWord(word!, position);
-    setWord(undefined)
-    setAddModal(undefined)
+    const position = addModal;
+    handleAddWord(word!, position!);
+    setWord(undefined);
+    setAddModal(undefined);
   };
 
-  const handleAddWord = (word: string, position?: string) => {
+  const handleAddWord = (word: string, position: string) => {
     const treeAux = [...tree];
-    treeAux.push({
+
+    const nodeData: IHierarchy = {
       id: Math.random() * 999999999,
       name: word,
       children: [],
-    });
-    setTree(treeAux)
+    };
+    if (position === "root") {
+      treeAux.push(nodeData);
+      setTree(treeAux);
+      return;
+    }
   };
 
   const renderNode = (tree: Array<IHierarchy>, parentIndex: string = "") => {
     if (!tree || !tree.length) return;
     return tree.map((node, index) => {
       return (
-        <TreeNode key={node.id} name={node.name} id={`${index}-${parentIndex}`}>
-          {renderNode(node.children, index.toString())}
-          <Button onClick={handleToggleAddModal}>Adicionar Palavra</Button>
+        <TreeNode key={node.id} name={node.name} id={`${parentIndex}-${index}`}>
+          {renderNode(node.children, `${parentIndex}-${index}`)}
+          <Button
+            onClick={() => handleToggleAddModal(`${parentIndex}-${index}`)}
+          >
+            Adicionar Palavra ao nó
+          </Button>
         </TreeNode>
       );
     });
@@ -58,6 +67,7 @@ function TreeView(): JSX.Element {
       {tree.length ? (
         <Fragment>
           {renderNode(tree)}
+          <Button style={{marginTop: 10}} onClick={handleToggleAddModal}>Adicionar Palavra à raiz</Button>
         </Fragment>
       ) : (
         <EmptyTree addWordClick={handleToggleAddModal} />
@@ -75,9 +85,7 @@ function TreeView(): JSX.Element {
             onChange={(e) => setWord(e.target.value)}
           />
           <div>
-            <Button type="submit">
-              Adicionar
-            </Button>
+            <Button type="submit">Adicionar</Button>
             <Button onClick={handleToggleAddModal} type="button" color="#CCC">
               Cancelar
             </Button>

@@ -6,8 +6,9 @@ export interface IButton {
   id?: string;
   type?: string;
   color?: string;
+  style?: string;
 }
-function Button({ children, onClick, id, type = "button", color = "#00c853" }: IButton) {
+function Button({ children, onClick, id, type = "button", color = "#00c853", style }: IButton) {
   const handleClickButton = () => {
     if (onClick) {
       onClick(id);
@@ -15,7 +16,7 @@ function Button({ children, onClick, id, type = "button", color = "#00c853" }: I
   };
 
   return (
-    <Container type={type} color={color} onClick={handleClickButton}>
+    <Container style={style} type={type} color={color} onClick={handleClickButton}>
       {children}
     </Container>
   );
