@@ -2,7 +2,7 @@ import Background from "../../layouts/Background";
 import Header from "../../components/Header";
 import Card from "../../components/Card";
 import { Body, Container } from "./styles";
-import TreeNode from "../../components/TreeNode";
+import TreeView from "../../components/TreeView";
 
 function Home() {
   return (
@@ -14,11 +14,7 @@ function Home() {
         />
         <Body>
           <Card>
-            <TreeNode name="Primeiro Node">
-              <p>testing child</p>
-              <p>testing child</p>
-              <p>testing child</p>
-            </TreeNode>
+            <TreeView />
           </Card>
         </Body>
       </Container>
