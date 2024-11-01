@@ -59,8 +59,6 @@ function TreeView(): JSX.Element {
 
   const onRemoveNode = (indexId: string) => {
     setTree((prevState) => {
-
-      
       const indexSequence: Array<string> = indexId
         .split("-")
         .filter((f) => f !== "");
@@ -69,6 +67,9 @@ function TreeView(): JSX.Element {
       const idx: number = parseInt(indexSequence.shift() as string);
 
       if(!indexSequence.length) {
+        if (!confirm(`Tem certeza que deseja deletar a palavra ${newTree[idx].name} e todos os seus sub nós?`)) {
+          return prevState;
+        }
         newTree.splice(idx, 1);
         return newTree;
       }
@@ -77,6 +78,9 @@ function TreeView(): JSX.Element {
         newTree[idx],
         indexSequence,
         (node, parent, parentIndex) => {
+          if (!confirm(`Tem certeza que deseja deletar a palavra ${node.name} e todos os seus sub nós?`)) {
+            return prevState;
+          }
           parent?.children.splice(parentIndex as number, 1);
         }
       );
