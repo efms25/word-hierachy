@@ -1,12 +1,15 @@
-
+<div align="center">
+  <img src="./assets/logo.png" alt="word hierarchy logo" />
+</div>
 # Word Hierarchy
 
 Applicações para gerar arvores de palavras como categorias e subcategorias e analisa frases para determinar correspondentes em uma determinada profundidade.
 
 **Front-end (apps/frontend):** Desenvolvido em React.js, oferece, de forma intuitiva, uma interface para criação e exportação de arvores de palavras.
+![frontend1](./assets/front_end_1.png)![frontend2](./assets/front_end_2.png)
 
 **Back-end (apps/server):** O sistema desenvolvido em Node.js e utilizando o runtime bun, analisa uma frase fornecida pelo usuário, identifica a profundidade de uma palavra mencionada e exibe os itens próximos dessa profundidade.
-
+![frontend2](./assets/front_end_2.png)
 
 ## **Funcionalidades**
 
