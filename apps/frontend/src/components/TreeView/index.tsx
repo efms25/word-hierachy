@@ -1,10 +1,11 @@
 import { AddModalForm, Container } from "./styles";
 import ReactModal from "react-modal";
 import EmptyTree from "../EmptyTree";
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import TreeNode from "../TreeNode";
 import Button from "../Button";
 import { nestIndexAccessHierarchy } from "../../utils/utils";
+import { AppContext, AppContextType } from "../../contexts/AppContext";
 
 // Define a tipo de um nó da árvore
 export type IHierarchy = {
@@ -14,7 +15,7 @@ export type IHierarchy = {
 };
 
 function TreeView(): JSX.Element {
-  const [tree, setTree] = useState<Array<IHierarchy>>([]);
+  const { tree, setTree } = useContext<AppContextType>(AppContext);
   const [addModal, setAddModal] = useState<string | undefined>(undefined);
   const [word, setWord] = useState<string | undefined>(undefined);
 
@@ -50,12 +51,12 @@ function TreeView(): JSX.Element {
       setTree(treeAux);
       return;
     }
-  
+
     // Transforma uma sequencia de indíces armazenados em formato de strint (ex: -1-4-0)
     // em um array de íncices
     const indexSequence: Array<string> = position
-    .split("-")
-    .filter((f) => f !== "");
+      .split("-")
+      .filter((f) => f !== "");
     const idx: number = parseInt(indexSequence.shift() as string);
 
     // Adiciona a um nó aninhado percorrendo cada índice pai do nó desejado
@@ -77,8 +78,12 @@ function TreeView(): JSX.Element {
       const idx: number = parseInt(indexSequence.shift() as string);
 
       // Remove nó na raiz
-      if(!indexSequence.length) {
-        if (!confirm(`Tem certeza que deseja deletar a palavra ${newTree[idx].name} e todos os seus sub nós?`)) {
+      if (!indexSequence.length) {
+        if (
+          !confirm(
+            `Tem certeza que deseja deletar a palavra ${newTree[idx].name} e todos os seus sub nós?`
+          )
+        ) {
           return prevState;
         }
         newTree.splice(idx, 1);
@@ -90,7 +95,11 @@ function TreeView(): JSX.Element {
         newTree[idx],
         indexSequence,
         (node, parent, parentIndex) => {
-          if (!confirm(`Tem certeza que deseja deletar a palavra ${node.name} e todos os seus sub nós?`)) {
+          if (
+            !confirm(
+              `Tem certeza que deseja deletar a palavra ${node.name} e todos os seus sub nós?`
+            )
+          ) {
             return prevState;
           }
           parent?.children.splice(parentIndex as number, 1);
