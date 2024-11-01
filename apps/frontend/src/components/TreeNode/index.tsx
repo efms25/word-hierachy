@@ -26,7 +26,9 @@ function TreeNode({ children, name, onRemove, id }: ITreeNode): JSX.Element {
     setExpanded(!expanded);
   };
 
-  const handleRemove = () => {
+  const handleRemove = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
     if (onRemove && id) {
       onRemove(id);
     }
@@ -50,7 +52,7 @@ function TreeNode({ children, name, onRemove, id }: ITreeNode): JSX.Element {
             <span>{name}</span>
           </div>
           <div>
-            <RemoveButton onClick={handleRemove}>
+            <RemoveButton onClick={(e) => handleRemove(e)}>
               <HiOutlineTrash />
             </RemoveButton>
           </div>

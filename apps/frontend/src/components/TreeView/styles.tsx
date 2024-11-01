@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-    height: 100%;
-    overflow: 100:
+    position: fixed;
+    height: calc(75vh - 50px);
+    max-width: 1240px;
+    width: calc(100vw - 40px);
+    overflow-y: auto;
 `
 
 export {
