@@ -6,6 +6,7 @@ import TreeNode from "../TreeNode";
 import Button from "../Button";
 import { nestIndexAccessHierarchy } from "../../utils/utils";
 
+// Define a tipo de um nó da árvore
 export type IHierarchy = {
   id: number;
   name: string;
@@ -17,6 +18,7 @@ function TreeView(): JSX.Element {
   const [addModal, setAddModal] = useState<string | undefined>(undefined);
   const [word, setWord] = useState<string | undefined>(undefined);
 
+  //Função para mudança de estado do modal
   const handleToggleAddModal = (position: string = "root") => {
     if (addModal) {
       setAddModal(undefined);
@@ -25,6 +27,7 @@ function TreeView(): JSX.Element {
     setAddModal(position);
   };
 
+  //Envio de formulário de adição do modal
   const onSubmitAdd = () => {
     const position = addModal;
     handleAddWord(word!, position!);
@@ -32,6 +35,7 @@ function TreeView(): JSX.Element {
     setAddModal(undefined);
   };
 
+  //Função para adicionar palavra na árvore
   const handleAddWord = (word: string, position: string) => {
     const treeAux = [...tree];
 
@@ -40,16 +44,21 @@ function TreeView(): JSX.Element {
       name: word,
       children: [],
     };
+    // Adiciona ao root
     if (position === "root") {
       treeAux.push(nodeData);
       setTree(treeAux);
       return;
     }
-
+  
+    // Transforma uma sequencia de indíces armazenados em formato de strint (ex: -1-4-0)
+    // em um array de íncices
     const indexSequence: Array<string> = position
-      .split("-")
-      .filter((f) => f !== "");
+    .split("-")
+    .filter((f) => f !== "");
     const idx: number = parseInt(indexSequence.shift() as string);
+
+    // Adiciona a um nó aninhado percorrendo cada índice pai do nó desejado
     nestIndexAccessHierarchy(treeAux[idx], indexSequence, (node) => {
       node.children.push(nodeData);
     });
@@ -57,6 +66,7 @@ function TreeView(): JSX.Element {
     setTree(treeAux);
   };
 
+  //Função para remover um nó
   const onRemoveNode = (indexId: string) => {
     setTree((prevState) => {
       const indexSequence: Array<string> = indexId
@@ -66,6 +76,7 @@ function TreeView(): JSX.Element {
 
       const idx: number = parseInt(indexSequence.shift() as string);
 
+      // Remove nó na raiz
       if(!indexSequence.length) {
         if (!confirm(`Tem certeza que deseja deletar a palavra ${newTree[idx].name} e todos os seus sub nós?`)) {
           return prevState;
@@ -74,6 +85,7 @@ function TreeView(): JSX.Element {
         return newTree;
       }
 
+      // Remove nó aninhado
       nestIndexAccessHierarchy(
         newTree[idx],
         indexSequence,
@@ -88,6 +100,8 @@ function TreeView(): JSX.Element {
       return newTree;
     });
   };
+
+  // Renderiza, recursivamente cada nó
   const renderNode = (tree: Array<IHierarchy>, parentIndex: string = "") => {
     if (!tree || !tree.length) return;
     return tree.map((node, index) => {
