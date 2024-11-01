@@ -19,6 +19,10 @@ const Info = styled.div`
   color: rgba(180, 180, 180);
   font-size: clamp(1rem, 3vh, 2rem);
   text-align: center;
-`
-
-export { Container, IconBox, Info };
+`;
+const Guide = styled.div`
+  font-size: clamp(1rem, 2vh, 1.5rem);
+  color: rgba(180, 180, 180);
+  text-align: center;
+`;
+export { Container, IconBox, Info, Guide };

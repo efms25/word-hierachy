@@ -7,8 +7,17 @@ export interface IButton {
   type?: "button" | "submit" | "reset";
   color?: string;
   style?: CSSProperties;
+  disabled?: boolean;
 }
-function Button({ children, onClick, id, type = "button", color = "#00c853", style }: IButton) {
+function Button({
+  children,
+  onClick,
+  id,
+  type = "button",
+  color = "#00c853",
+  style,
+  disabled,
+}: IButton) {
   const handleClickButton = () => {
     if (onClick) {
       onClick(id);
@@ -16,7 +25,13 @@ function Button({ children, onClick, id, type = "button", color = "#00c853", sty
   };
 
   return (
-    <Container style={style} type={type} color={color} onClick={handleClickButton}>
+    <Container
+      style={style}
+      disabled={disabled}
+      type={type}
+      color={color}
+      onClick={handleClickButton}
+    >
       {children}
     </Container>
   );
