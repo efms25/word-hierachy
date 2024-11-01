@@ -53,19 +53,54 @@ function TreeView(): JSX.Element {
     nestIndexAccessHierarchy(treeAux[idx], indexSequence, (node) => {
       node.children.push(nodeData);
     });
+
+    setTree(treeAux);
   };
 
+  const onRemoveNode = (indexId: string) => {
+    setTree((prevState) => {
+
+      
+      const indexSequence: Array<string> = indexId
+        .split("-")
+        .filter((f) => f !== "");
+      const newTree = [...prevState];
+
+      const idx: number = parseInt(indexSequence.shift() as string);
+
+      if(!indexSequence.length) {
+        newTree.splice(idx, 1);
+        return newTree;
+      }
+
+      nestIndexAccessHierarchy(
+        newTree[idx],
+        indexSequence,
+        (node, parent, parentIndex) => {
+          parent?.children.splice(parentIndex as number, 1);
+        }
+      );
+
+      return newTree;
+    });
+  };
   const renderNode = (tree: Array<IHierarchy>, parentIndex: string = "") => {
     if (!tree || !tree.length) return;
     return tree.map((node, index) => {
       return (
-        <TreeNode key={node.id} name={node.name} id={`${parentIndex}-${index}`}>
+        <TreeNode
+          key={node.id}
+          name={node.name}
+          id={`${parentIndex}-${index}`}
+          onRemove={onRemoveNode}
+        >
           {renderNode(node.children, `${parentIndex}-${index}`)}
           <Button
             style={{ marginTop: 10 }}
             onClick={() => handleToggleAddModal(`${parentIndex}-${index}`)}
           >
-            Adicionar Palavra ao nó {node.name.length > 10 ? node.name.slice(0,10) + '...' : node.name}
+            Adicionar Palavra ao nó{" "}
+            {node.name.length > 10 ? node.name.slice(0, 10) + "..." : node.name}
           </Button>
         </TreeNode>
       );

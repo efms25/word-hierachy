@@ -5,7 +5,7 @@ const Container = styled.div`
   height: calc(75vh - 50px);
   max-width: 1240px;
   width: calc(100vw - 40px);
-  overflow-y: auto;
+  overflow: auto;
 `;
 
 const AddModalForm = styled.form`
